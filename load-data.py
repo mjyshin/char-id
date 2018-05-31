@@ -2,10 +2,9 @@ from PIL import Image
 import pandas as pd
 import numpy as np
 
-def load_data()
+def load_data():
     # Dataset dimensions
     N = 6283
-    D = 400
 
     # Load feature dataset and convert to grayscale
     X = []
