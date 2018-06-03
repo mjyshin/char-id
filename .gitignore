@@ -1,2 +1,4 @@
 trainResized/
 .idea/
+__pycache__/
+run_char_id.py
