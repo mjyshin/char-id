@@ -4,6 +4,14 @@ import numpy as np
 
 
 def load_data():
+    """
+    LOAD DATASETS
+    Inputs:     20 x 20 color .bmp images
+    Processes:  Convert each 20 x 20 RGB image to 1 x 400 grayscale array
+                Split data and labels between train and test sets
+    Outputs:    Datasets including train data and labels, and test data and labels
+    """
+
     # Dataset dimensions
     N = 6283
 
@@ -12,19 +20,19 @@ def load_data():
     for i in range(1, N + 1):
         img = Image.open("./trainResized/{}.Bmp".format(str(i)))
         img = img.convert("LA")
-        imgData = list(img.getdata())
+        imgdata = list(img.getdata())
         img = []
-        for value in imgData:
+        for value in imgdata:
             img.append(value[0] / value[1])
         X.append(img)
     X = pd.DataFrame(X)
 
     # Load label dataset
-    yReal = pd.read_csv("trainLabels.csv", usecols=[1])
-    yClass = yReal.iloc[0:N]
-    y = yClass.copy()
+    yreal = pd.read_csv("trainLabels.csv", usecols=[1])
+    yclass = yreal.iloc[0:N]
+    y = yclass.copy()
     for i in range(0, N):
-        y.iloc[i] = ord(str(yClass.iloc[i].values)[2])
+        y.iloc[i] = ord(str(yclass.iloc[i].values)[2])
 
     # Divide training/test sets
     Ntrain = 5000

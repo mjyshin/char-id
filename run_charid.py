@@ -7,7 +7,12 @@ from sklearn.decomposition import PCA
 
 
 def dim_red(Xtrain, Xtest):
-    # Run dimensionality reduction
+    """
+    RUN DIMENSIONALITY REDUCTION
+    Inputs:     Full train and test data (n x 400)
+    Processes:  Reduce dimension from 400 to d while maintaining 95% of data variance
+    Outputs:    Reduced train and test data (n x d)
+    """
     pca = PCA()
     pca.fit(Xtrain)
     cumsum = np.cumsum(pca.explained_variance_ratio_)
