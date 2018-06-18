@@ -11,9 +11,11 @@ from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import VotingClassifier
 
+
 def dim_red(Xtrain, Xtest):
     """
     RUN DIMENSIONALITY REDUCTION
+
     Inputs:     Full train and test data (n x 400)
     Processes:  Reduce dimension from 400 to d while maintaining 95% of data variance
     Outputs:    Reduced train and test data (n x d)
@@ -29,7 +31,15 @@ def dim_red(Xtrain, Xtest):
     return {'Xtrain_red': Xtrain_red, 'Xtest_red': Xtest_red}
 
 
-def run_pca(Xtrain, ytrain, Xtest, ytest):
+def run_svm(Xtrain, ytrain, Xtest, ytest):
+    """
+    RUN SUPPORT VECTOR MACHINE
+
+    Inputs:     Reduced train and test data and labels
+    Processes:  Run cross validation with SVM on train data and run best model on test data
+    Outputs:    Optimal SVM model
+    """
+
     print("\n***** SUPPORT VECTOR MACHINE *****")
     rbf_svm_best_mean = 0.
     rbf_svm_best_param = [0., 0.]
@@ -72,6 +82,14 @@ def run_pca(Xtrain, ytrain, Xtest, ytest):
 
 
 def run_knn(Xtrain, ytrain, Xtest, ytest):
+    """
+    RUN K-NEAREST NEIGHBORS
+
+    Inputs:     Reduced train and test data and labels
+    Processes:  Run cross validation with kNN on train data and run best model on test data
+    Outputs:    Optimal kNN model
+    """
+
     print("\n***** K-NEAREST NEIGHBORS *****")
     knn_best_mean = 0.
     knn_best_param = ['uniform', 1]
@@ -108,6 +126,14 @@ def run_knn(Xtrain, ytrain, Xtest, ytest):
 
 
 def run_voting(Xtrain, ytrain, Xtest, ytest, rbf_svm_best, knn_best):
+    """
+    RUN VOTING CLASSIFIER
+
+    Inputs:     Reduced train and test data and labels and optimal SVM and kNN models
+    Processes:  Run voting classification on test data
+    Outputs:    None
+    """
+
     print("\n***** SOFT VOTING *****")
     voting_clf = VotingClassifier(
         estimators=[('svc', rbf_svm_best), ('knn', knn_best)],
