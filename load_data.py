@@ -37,12 +37,12 @@ def load_data():
     # Divide training/test sets
     Ntrain = 5000
 
-    def split_dataset(data, trainSize):
+    def split_dataset(data, Ntrain):
         np.random.seed(0)
-        testSize = int(len(data) - trainSize)
+        Ntest = int(len(data) - Ntrain)
         shuffled_ind = np.random.permutation(len(data))
-        train_ind = shuffled_ind[testSize:]
-        test_ind = shuffled_ind[:testSize]
+        train_ind = shuffled_ind[Ntest:]
+        test_ind = shuffled_ind[:Ntest]
         return data.iloc[train_ind].reset_index(drop=True), data.iloc[test_ind].reset_index(drop=True)
 
     Xtrain, Xtest = split_dataset(X, Ntrain)
